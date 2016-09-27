@@ -59,16 +59,19 @@
 %% @doc Start the listener as a registered process with callback module `Module' on with options `Options' linked to the calling process.
 -spec start_link(ServerName :: {'local', atom()} | {'global', any()}, Module :: atom(), Options :: [options()]) -> {'ok', pid()} | 'ignore' | {'error', any()}.
 start_link(ServerName, Module, Options) when is_list(Options) ->
+  io:format("START SERVER"),
 	gen_server:start_link(ServerName, ?MODULE, [Module, Options], []).
 
 %% @doc Start the listener with callback module `Module' on with options `Options' linked to the calling process.
 -spec start_link(Module :: atom(), Options :: [options()]) -> {'ok', pid()} | 'ignore' | {'error', any()}.
 start_link(Module, Options) when is_list(Options) ->
+  io:format("START SERVER 2"),
 	gen_server:start_link(?MODULE, [Module, Options], []).
 
 %% @doc Start the listener with callback module `Module' with default options linked to the calling process.
 -spec start_link(Module :: atom()) -> {'ok', pid()} | 'ignore' | {'error', any()}.
 start_link(Module) ->
+  io:format("START SERVER 3"),
 	start_link(Module, [[]]).
 
 %% @doc Start the listener as a registered process with callback module `Module' with options `Options' linked to no process.
