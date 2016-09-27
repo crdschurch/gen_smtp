@@ -155,6 +155,7 @@ handle_info({receive_data, {error, bare_newline}}, #state{socket = Socket, readm
 handle_info({receive_data, Body, Rest}, #state{socket = Socket, readmessage = true, envelope = Env, module=Module,
 		callbackstate = OldCallbackState,  extensions = Extensions} = State) ->
 	% send the remainder of the data...
+  io:format("GET DATA"),
 	case Rest of
 		<<>> -> ok; % no remaining data
 		_ -> self() ! {socket:get_proto(Socket), Socket, Rest}
@@ -176,7 +177,8 @@ handle_info({receive_data, Body, Rest}, #state{socket = Socket, readmessage = tr
 		false ->
 			true
 	end,
-	case Valid of
+  erlang:display(Envelope),
+  case Valid of
 		true ->
 			case Module:handle_DATA(Envelope#envelope.from, Envelope#envelope.to, Envelope#envelope.data, OldCallbackState) of
 				{ok, Reference, CallbackState} ->

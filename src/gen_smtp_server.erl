@@ -178,6 +178,7 @@ handle_cast(_Msg, State) ->
 -spec handle_info(Message :: any(), State :: #state{}) -> {'noreply', #state{}} | {'stop', any(), #state{}}.
 handle_info({inet_async, ListenPort,_, {ok, ClientAcceptSocket}},
 	#state{module = Module, listeners = Listeners, sessions = CurSessions} = State) ->
+  io:format("HELLO"),
 	try
 		% find this ListenPort in our listeners.
 		[Listener] = lists:flatten([case L#listener.port of
